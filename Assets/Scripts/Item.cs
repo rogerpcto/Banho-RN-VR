@@ -9,6 +9,8 @@ public class Item : MonoBehaviour
     private XRGrabInteractable _grabInteractable;
     private bool _isHovered = false;
 
+    private bool _isSet = false;
+
     private void Awake()
     {
         _grabInteractable = GetComponent<XRGrabInteractable>();
@@ -22,12 +24,18 @@ public class Item : MonoBehaviour
 
     private void OnHoverEntered(HoverEnterEventArgs args)
     {
+        if (_isSet)
+            return;
+
         _isHovered = true;
         SetHighlight(true);
     }
 
     private void OnHoverExited(HoverExitEventArgs args)
     {
+        if (_isSet)
+            return;
+
         if (_isHovered)
         {
             SetHighlight(false);
@@ -37,6 +45,13 @@ public class Item : MonoBehaviour
     private void SetHighlight(bool highlight)
     {
         _outline.enabled = highlight;
+    }
+
+    public void SetBandejaOutline()
+    {
+        _isSet = true;
+        _outline.OutlineColor = _correto ? Color.green : Color.red;
+        SetHighlight(true);
     }
 
 }
