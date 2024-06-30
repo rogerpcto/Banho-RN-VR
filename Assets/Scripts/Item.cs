@@ -5,10 +5,14 @@ public class Item : MonoBehaviour
 {
     [SerializeField]
     private bool _correto;
+    [SerializeField]
+    private ItemCanvas _itemCanvas;
     private Outline _outline;
     private XRGrabInteractable _grabInteractable;
-    private bool _isHovered = false;
+    [SerializeField]
+    private string _nome;
 
+    private bool _isHovered = false;
     private bool _isSet = false;
 
     private void Awake()
@@ -20,6 +24,7 @@ public class Item : MonoBehaviour
             _grabInteractable.hoverEntered.AddListener(OnHoverEntered);
             _grabInteractable.hoverExited.AddListener(OnHoverExited);
         }
+        _itemCanvas.Inicializar(_nome);
     }
 
     private void OnHoverEntered(HoverEnterEventArgs args)
@@ -29,6 +34,7 @@ public class Item : MonoBehaviour
 
         _isHovered = true;
         SetHighlight(true);
+        _itemCanvas?.gameObject.SetActive(true);
     }
 
     private void OnHoverExited(HoverExitEventArgs args)
@@ -39,6 +45,7 @@ public class Item : MonoBehaviour
         if (_isHovered)
         {
             SetHighlight(false);
+            _itemCanvas?.gameObject.SetActive(false);
         }
     }
 
@@ -51,6 +58,11 @@ public class Item : MonoBehaviour
     {
         _isSet = true;
         _outline.OutlineColor = _correto ? Color.green : Color.red;
+        if (_correto)
+        {
+            int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
+            _grabInteractable.interactionLayers &= ~defaultLayerMask;
+        }
         SetHighlight(true);
     }
 
