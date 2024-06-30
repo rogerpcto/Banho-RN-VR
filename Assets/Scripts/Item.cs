@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
     private bool _correto;
     [SerializeField]
     private ItemCanvas _itemCanvas;
+    [SerializeField]
     private Outline _outline;
     private XRGrabInteractable _grabInteractable;
     [SerializeField]
@@ -18,11 +19,14 @@ public class Item : MonoBehaviour
     private void Awake()
     {
         _grabInteractable = GetComponent<XRGrabInteractable>();
-        _outline = GetComponent<Outline>();
+        if (_outline == null)
+            _outline = GetComponent<Outline>();
         if (_grabInteractable != null)
         {
             _grabInteractable.hoverEntered.AddListener(OnHoverEntered);
             _grabInteractable.hoverExited.AddListener(OnHoverExited);
+            _grabInteractable.selectEntered.AddListener(OnSelectEntered);
+            _grabInteractable.selectExited.AddListener(OnSelectExited);
         }
         _itemCanvas.Inicializar(_nome);
     }
@@ -34,7 +38,7 @@ public class Item : MonoBehaviour
 
         _isHovered = true;
         SetHighlight(true);
-        _itemCanvas?.gameObject.SetActive(true);
+        _itemCanvas.gameObject.SetActive(true);
     }
 
     private void OnHoverExited(HoverExitEventArgs args)
@@ -45,8 +49,20 @@ public class Item : MonoBehaviour
         if (_isHovered)
         {
             SetHighlight(false);
-            _itemCanvas?.gameObject.SetActive(false);
+            _itemCanvas.gameObject.SetActive(false);
         }
+    }
+
+    private void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        _isSet = true;
+        _itemCanvas.gameObject.SetActive(true);
+    }
+    
+    private void OnSelectExited(SelectExitEventArgs args)
+    {
+        _isSet = false;
+        _itemCanvas.gameObject.SetActive(false);
     }
 
     private void SetHighlight(bool highlight)
@@ -57,6 +73,7 @@ public class Item : MonoBehaviour
     public void SetBandejaOutline()
     {
         _isSet = true;
+        _itemCanvas.gameObject.SetActive(false);
         _outline.OutlineColor = _correto ? Color.green : Color.red;
         if (_correto)
         {
