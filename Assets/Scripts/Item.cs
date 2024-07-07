@@ -3,6 +3,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Item : MonoBehaviour
 {
+    public bool Correto
+    {
+        get
+        {
+            return _correto;
+        }
+    }
+
     [SerializeField]
     private bool _correto;
     [SerializeField]
@@ -12,6 +20,8 @@ public class Item : MonoBehaviour
     private XRGrabInteractable _grabInteractable;
     [SerializeField]
     private string _nome;
+    [SerializeField]
+    private string _informacao;
 
     private bool _isHovered = false;
     private bool _isSet = false;
@@ -55,6 +65,9 @@ public class Item : MonoBehaviour
 
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
+        if (_isSet)
+            return;
+
         _isSet = true;
         _itemCanvas.gameObject.SetActive(true);
     }
@@ -81,6 +94,11 @@ public class Item : MonoBehaviour
             _grabInteractable.interactionLayers &= ~defaultLayerMask;
         }
         SetHighlight(true);
+    }
+
+    public string GetInformacao()
+    {
+        return $"Essa informação é sobre o item {_nome}.";
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class BandejaSocket : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask _layerToRemove;
+    private Bandeja _bandeja; 
     private XRSocketInteractor socketInteractor;
 
     private void Awake()
@@ -13,6 +13,7 @@ public class BandejaSocket : MonoBehaviour
         if (socketInteractor != null)
         {
             socketInteractor.selectEntered.AddListener(OnSelectEntered);
+            socketInteractor.selectExited.AddListener(OnSelectExited);
         }
     }
 
@@ -21,6 +22,7 @@ public class BandejaSocket : MonoBehaviour
         if (socketInteractor != null)
         {
             socketInteractor.selectEntered.RemoveListener(OnSelectEntered);
+            socketInteractor.selectExited.RemoveListener(OnSelectExited);
         }
     }
 
@@ -31,6 +33,11 @@ public class BandejaSocket : MonoBehaviour
         if (item != null)
         {
             item.SetBandejaOutline();
+            _bandeja.CadastrarItem(item);
         }
+    }
+    private void OnSelectExited(SelectExitEventArgs args)
+    {
+        Debug.Log("Saiu");
     }
 }
