@@ -22,9 +22,17 @@ public class Item : MonoBehaviour
     private string _nome;
     [SerializeField]
     private string _informacao;
+    [SerializeField]
+    private float _segundosParaResetar = 5f;
+    [SerializeField]
+    private float _distanciaMaxima = 2f;
 
     private bool _isHovered = false;
     private bool _isSet = false;
+    private Vector3 _posicaoInicial;
+    private Quaternion _rotacaoInicial;
+    private float _segundosChecagem = 1.0f;
+    private float _segundosLonge;
 
     private void Awake()
     {
@@ -39,6 +47,30 @@ public class Item : MonoBehaviour
             _grabInteractable.selectExited.AddListener(OnSelectExited);
         }
         _itemCanvas.Inicializar(_nome);
+        _posicaoInicial = transform.position;
+        _rotacaoInicial = transform.rotation;
+        InvokeRepeating(nameof(ChecarDistancia), _segundosChecagem, _segundosChecagem);
+    }
+
+    private void ChecarDistancia()
+    {
+        if (_isSet)
+            return;
+
+        float distancia = Vector3.Distance(transform.position, _posicaoInicial);
+
+        if (distancia < _distanciaMaxima)
+        {
+            _segundosLonge = 0;
+            return;
+        }
+        
+        _segundosLonge += _segundosChecagem;
+        if (_segundosLonge > _segundosParaResetar)
+        {
+            transform.SetPositionAndRotation(_posicaoInicial, _rotacaoInicial);
+            _segundosLonge = 0;
+        }
     }
 
     private void OnHoverEntered(HoverEnterEventArgs args)
@@ -69,6 +101,7 @@ public class Item : MonoBehaviour
             return;
 
         _isSet = true;
+        _segundosLonge = 0;
         _itemCanvas.gameObject.SetActive(true);
     }
     

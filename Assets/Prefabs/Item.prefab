@@ -371,6 +371,8 @@ MonoBehaviour:
   _outline: {fileID: 8009745567170586488}
   _nome: Manta
   _informacao: 
+  _segundosParaResetar: 5
+  _distanciaMaxima: 2
 --- !u!1001 &3016437902365194035
 PrefabInstance:
   m_ObjectHideFlags: 0
