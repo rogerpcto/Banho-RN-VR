@@ -21,6 +21,7 @@ public class Item : MonoBehaviour
     [SerializeField]
     private string _nome;
     [SerializeField]
+    [TextArea]
     private string _informacao;
     [SerializeField]
     private float _segundosParaResetar = 5f;
@@ -131,7 +132,9 @@ public class Item : MonoBehaviour
 
     public string GetInformacao()
     {
-        return $"Essa informação é sobre o item {_nome}.";
+        string cor = _correto ? "green" : "red";
+        return $"<color={cor}><b>{_nome}:</b></color>\n" +
+               $"{_informacao}";
     }
 
 }
