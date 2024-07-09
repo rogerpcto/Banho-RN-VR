@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LayerNames:
   - Default
-  - Alcool
+  - Alcool70
   - Shampoo
-  - Pote
+  - SaboneteGlicerinado
   - Perfume
-  - Tubo
-  - Lenco
-  - Toalha
-  - Tecido
+  - SabonetePerfumado
+  - LencoUmedecido
+  - ToalhaMacia
+  - Body
   - Manta
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ToalhaAspera
+  - Alcool90
+  - Condicionador
+  - Algodao
+  - SaboneteBarra
+  - Fralda
+  - Talco
   - 
   - 
   - 
