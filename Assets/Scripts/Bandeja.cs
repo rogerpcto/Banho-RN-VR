@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Bandeja : MonoBehaviour
 {
-    private readonly Stack<Item> _itens = new();
+    private readonly List<Item> _itens = new();
 
     [SerializeField]
     private TextMeshProUGUI _display;
 
     public void CadastrarItem(Item item)
     {
-        if (item.Correto)
-            _itens.Push(item);
-
+        _itens.Add(item);
         _display.text = item.GetInformacao();
     }
 
+    public void RetirarItem(Item item)
+    {
+        _itens.Remove(item);
+        if (_itens.Count > 0)
+            _display.text = _itens[^1].GetInformacao();
+    }
 }

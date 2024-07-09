@@ -38,6 +38,11 @@ public class BandejaSocket : MonoBehaviour
     }
     private void OnSelectExited(SelectExitEventArgs args)
     {
-        Debug.Log("Saiu");
+        XRGrabInteractable interactable = args.interactableObject as XRGrabInteractable;
+        Item item = interactable.gameObject.GetComponent<Item>();
+        if (item != null)
+        {
+            _bandeja.RetirarItem(item);
+        }
     }
 }
