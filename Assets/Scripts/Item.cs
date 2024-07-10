@@ -136,5 +136,4 @@ public class Item : MonoBehaviour
         return $"<color={cor}><b>{_nome}:</b></color>\n" +
                $"{_informacao}";
     }
-
 }
