@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -20,11 +21,12 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Button _nextButton;
 
-    private int _indexInstrucao = 0;
+    private int _indexMensagens = 0;
+    private string[] _mensagens;
 
-    private string[] _instrucoes =
+    private readonly string[] _instrucoes =
     {
-        "Bem-vindo ao nosso jogo de realidade virtual que ensina como dar banho em um recém-nascido! Você pode ler as regras controlando com os botões abaixo ou começar o jogo agora apertando em \"Jogar\".",
+        "Bem-vindo ao nosso jogo de realidade virtual que ensina como dar banho em um recém-nascido! Você pode ler as regras controlando com os botões abaixo ou começar o jogo agora apertando em <b>Jogar<\b>.",
         "1 - <b>Itens Disponíveis</b>:\n Você verá vários itens ao seu redor, todos ao alcance. Estes itens podem ser úteis ou não para dar banho em um recém-nascido.\n" +
         "2 - <b>Bandeja Azul</b>:\n Em sua frente, você encontrará uma bandeja azul. Esta é a área onde você deve colocar os itens que acredita serem necessários para dar banho no bebê.",
 
@@ -33,8 +35,8 @@ public class UIController : MonoBehaviour
             "<color=green>Verde</color>: Se você escolheu um item correto, ele será destacado em verde.\n" +
             "<color=red>Vermelho</color>: Se você escolheu um item incorreto, ele será destacado em vermelho.",
 
-        "5 - <b>Finalizar Escolha</b>:\n Quando você achar que já escolheu todos os itens necessários, clique no botão \"Finalizar\" localizado nessa caixa de texto.\n" +
-        "6 - <b>Revisão</b>:\n Após clicar em \"Finalizar\", você receberá uma pontuação sobre suas escolhas, com dicas sobre os itens corretos e incorretos.\n" +
+        "5 - <b>Finalizar Escolha</b>:\n Quando você achar que já escolheu todos os itens necessários, clique no botão <b>Finalizar</b> localizado nessa caixa de texto.\n" +
+        "6 - <b>Revisão</b>:\n Após clicar em <b>Finalizar</b>, você receberá uma pontuação baseada em suas escolhas, com dicas sobre os itens corretos e incorretos.\n" +
         "Divirta-se e aprenda a dar banho em um recém-nascido de maneira segura e eficaz!",
 
     };
@@ -44,6 +46,9 @@ public class UIController : MonoBehaviour
         _button.onClick.AddListener(MostrarInstrucoes);
         _nextButton.onClick.AddListener(Proximo);
         _previousButton.onClick.AddListener(Anterior);
+
+        Item[] itensEmCena = _itens.GetComponentsInChildren<Item>();
+        _bandeja.Iniciar(itensEmCena);
     }
 
     public void SetText(string text)
@@ -53,30 +58,37 @@ public class UIController : MonoBehaviour
 
     private void MostrarInstrucoes()
     {
-        _display.text = _instrucoes[0];
-        _nextButton.gameObject.SetActive(true);
+        _mensagens = _instrucoes;
         _buttonText.text = "JOGAR";
         _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(ComecarJogo);
+        MostrarMensagens();
+    }
+
+    private void MostrarMensagens()
+    {
+        _display.text = _mensagens[0];
+        if (_mensagens.Length > 0)
+            _nextButton.gameObject.SetActive(true);
     }
 
     private void Proximo()
     {
-        _indexInstrucao++;
-        _display.text = _instrucoes[_indexInstrucao];
-        if (_indexInstrucao == 1)
+        _indexMensagens++;
+        _display.text = _mensagens[_indexMensagens];
+        if (_indexMensagens == 1)
             _previousButton.gameObject.SetActive(true);
-        if (_indexInstrucao == _instrucoes.Length - 1)
+        if (_indexMensagens == _mensagens.Length - 1)
             _nextButton.gameObject.SetActive(false);
     }
 
     private void Anterior()
     {
-        _indexInstrucao--;
-        _display.text = _instrucoes[_indexInstrucao];
-        if (_indexInstrucao == 0)
+        _indexMensagens--;
+        _display.text = _mensagens[_indexMensagens];
+        if (_indexMensagens == 0)
             _previousButton.gameObject.SetActive(false);
-        if (_indexInstrucao == _instrucoes.Length - 2)
+        if (_indexMensagens == _mensagens.Length - 2)
             _nextButton.gameObject.SetActive(true);
     }
 
@@ -86,7 +98,7 @@ public class UIController : MonoBehaviour
         _previousButton.gameObject.SetActive(false);
 
         _display.text = "Coloque os itens na bandeja!";
-        _itens.gameObject.SetActive(true);
+        _itens.SetActive(true);
 
         _buttonText.text = "FINALIZAR";
         _button.onClick.RemoveAllListeners();
@@ -95,6 +107,17 @@ public class UIController : MonoBehaviour
 
     private void FinalizarJogo()
     {
-        Debug.Log("Fim de Jogo");
+        string[] checklist = _bandeja.Checklist();
+        _indexMensagens = 0;
+        _mensagens = checklist;
+        _buttonText.text = "REINICIAR";
+        _button.onClick.RemoveAllListeners();
+        _button.onClick.AddListener(ReiniciarJogo);
+        MostrarMensagens();
+    }
+
+    private void ReiniciarJogo()
+    {
+        SceneManager.LoadScene(0);
     }
 }

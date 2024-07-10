@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 203331533}
   - component: {fileID: 203331532}
   m_Layer: 0
-  m_Name: Mesa
+  m_Name: Frente
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -583,7 +583,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4a8b4125ba627a6478c7badb569226c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -620,15 +620,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203331531}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.07, y: 2.5082, z: 0.0892}
-  m_LocalScale: {x: 1.1, y: 0.2, z: 4}
+  m_LocalScale: {x: 4, y: 0.2, z: 1.1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1205162275}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 463888013}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &233881304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,6 +1758,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9032954039820430273, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_MaxRaycastDistance
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032954039820430273, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_RaycastSnapVolumeInteraction
       value: 0
       objectReference: {fileID: 0}
@@ -1771,6 +1774,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9146015503685400394, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_MaxRaycastDistance
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146015503685400394, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_RaycastSnapVolumeInteraction
       value: 0
       objectReference: {fileID: 0}
@@ -1781,6 +1788,39 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
   m_PrefabInstance: {fileID: 452463679}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &463888012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 463888013}
+  m_Layer: 0
+  m_Name: Mesa
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &463888013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463888012}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 203331535}
+  - {fileID: 1205162275}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &505863241
 GameObject:
   m_ObjectHideFlags: 0
@@ -3531,7 +3571,7 @@ GameObject:
   - component: {fileID: 1205162277}
   - component: {fileID: 1205162276}
   m_Layer: 0
-  m_Name: Mesa (1)
+  m_Name: Esquerda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3544,14 +3584,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205162274}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.3927271, y: 0, z: -0.37505007}
-  m_LocalScale: {x: 0.25, y: 1, z: 1.8181819}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6019998, y: 2.5082, z: -1.4110003}
+  m_LocalScale: {x: 2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 203331535}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_Father: {fileID: 463888013}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1205162276
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3585,7 +3625,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4a8b4125ba627a6478c7badb569226c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6662,8 +6702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3016437901837523301, guid: a4e8002190876d14783e39b98461aaa7, type: 3}
       propertyPath: _informacao
-      value: "Pode ser muito forte e menos higi\xEAnico comparado ao sabonete l\xEDquido
-        glicerinado."
+      value: "Pode ser muito forte e menos higi\xEAnico comparado ao sabonete l\xEDquido."
       objectReference: {fileID: 0}
     - target: {fileID: 3016437901837523303, guid: a4e8002190876d14783e39b98461aaa7, type: 3}
       propertyPath: m_RootOrder

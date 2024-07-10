@@ -122,11 +122,10 @@ public class Item : MonoBehaviour
         _isSet = true;
         _itemCanvas.gameObject.SetActive(false);
         _outline.OutlineColor = _correto ? Color.green : Color.red;
-        if (_correto)
-        {
-            int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
-            _grabInteractable.interactionLayers &= ~defaultLayerMask;
-        }
+
+        int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
+        _grabInteractable.interactionLayers &= ~defaultLayerMask;
+
         SetHighlight(true);
     }
 
