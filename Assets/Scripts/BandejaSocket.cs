@@ -33,6 +33,7 @@ public class BandejaSocket : MonoBehaviour
         if (item != null)
         {
             item.SetBandejaOutline();
+            item.DesativarInteratividade();
             _bandeja.CadastrarItem(item);
         }
     }

@@ -119,12 +119,8 @@ public class Item : MonoBehaviour
 
     public void SetBandejaOutline()
     {
-        _isSet = true;
         _itemCanvas.gameObject.SetActive(false);
         _outline.OutlineColor = _correto ? Color.green : Color.red;
-
-        int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
-        _grabInteractable.interactionLayers &= ~defaultLayerMask;
 
         SetHighlight(true);
     }
@@ -134,5 +130,12 @@ public class Item : MonoBehaviour
         string cor = _correto ? "green" : "red";
         return $"<color={cor}><b>{_nome}:</b></color>\n" +
                $"{_informacao}";
+    }
+
+    public void DesativarInteratividade()
+    {
+        _isSet = true;
+        int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
+        _grabInteractable.interactionLayers &= ~defaultLayerMask;
     }
 }

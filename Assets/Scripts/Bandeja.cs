@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Bandeja : MonoBehaviour
     private int _totalItensErrados;
     private float _pontosPorItemCorreto;
     private float _penalidadePorItemErrado;
+    private Action _onGameEnd;
 
     private readonly List<Item> _itens = new();
 
@@ -21,6 +23,14 @@ public class Bandeja : MonoBehaviour
 
         _totalItensErrados = itens.Count(i => !i.Correto);
         _penalidadePorItemErrado = 60f / _totalItensErrados;
+
+        _onGameEnd = () =>
+        {
+            foreach (var item in itens)
+            {
+                item.DesativarInteratividade();
+            }
+        };
     }
 
     public void CadastrarItem(Item item)
@@ -59,6 +69,8 @@ public class Bandeja : MonoBehaviour
         {
             result.Add(item.GetInformacao());
         }
+
+        _onGameEnd.Invoke();
 
         return result.ToArray();
     }
