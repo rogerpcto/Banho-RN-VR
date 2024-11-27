@@ -68,7 +68,7 @@ public class UIController : MonoBehaviour
     private void MostrarMensagens()
     {
         _display.text = _mensagens[0];
-        if (_mensagens.Length > 0)
+        if (_mensagens.Length > 1)
             _nextButton.gameObject.SetActive(true);
     }
 
