@@ -15,6 +15,10 @@ public class Bandeja : MonoBehaviour
 
     [SerializeField]
     private UIController _display;
+    [SerializeField]
+    private Sprite _correto;
+    [SerializeField]
+    private Sprite _incorreto;
 
     public void Iniciar(Item[] itens)
     {
@@ -36,17 +40,31 @@ public class Bandeja : MonoBehaviour
     public void CadastrarItem(Item item)
     {
         _itens.Add(item);
-        _display.SetText(item.GetInformacao());
+        Mensagem mensagem = new Mensagem()
+        {
+            mensagem = item.GetInformacao(),
+            sprite = item.Correto ? _correto : _incorreto
+        };
+        _display.SetMensagem(mensagem);
+        if (_itens.Count > 3)
+            _display.LigarBotao();
     }
 
     public void RetirarItem(Item item)
     {
         _itens.Remove(item);
         if (_itens.Count > 0)
-            _display.SetText(_itens[^1].GetInformacao());
+        {
+            Mensagem mensagem = new Mensagem()
+            {
+                mensagem = _itens[^1].GetInformacao(),
+                sprite = _itens[^1].Correto ? _correto : _incorreto
+            };
+            _display.SetMensagem(mensagem);
+        }
     }
 
-    public string[] Checklist()
+    public Mensagem[] Checklist()
     {
         var itensCorretos = _itens.Count(i => i.Correto);
         var itensErrados = _itens.Count(i => !i.Correto);
@@ -57,17 +75,25 @@ public class Bandeja : MonoBehaviour
         else
             pontuacao = Mathf.RoundToInt(pontuacao);
 
-        var result = new List<string>
+        var result = new List<Mensagem>
         {
-            $"<color=green>Itens corretos</color>: {itensCorretos}/{_totalItensCorretos}\n" +
-            $"<color=red>Itens errados</color>: {itensErrados}/{_totalItensErrados}\n" +
-            $"Você escolheu {itensCorretos * 100 / _totalItensCorretos}% dos itens corretos e {itensErrados * 100 / _totalItensErrados}% dos itens errados.\n" +
-            $"Sua pontuação foi de {pontuacao} pontos. Reveja informações sobre os itens usando o menu abaixo."
+            new Mensagem()
+            {
+                mensagem = $"<color=green>Itens corretos</color>: {itensCorretos}/{_totalItensCorretos}\n" +
+                $"<color=red>Itens errados</color>: {itensErrados}/{_totalItensErrados}\n" +
+                $"Você escolheu {itensCorretos * 100 / _totalItensCorretos}% dos itens corretos e {itensErrados * 100 / _totalItensErrados}% dos itens errados.\n" +
+                $"Sua pontuação foi de {pontuacao} pontos. Reveja informações sobre os itens usando o menu abaixo."
+            }
         };
 
         foreach (Item item in _itens)
         {
-            result.Add(item.GetInformacao());
+            Mensagem mensagem = new Mensagem()
+            {
+                mensagem = item.GetInformacao(),
+                sprite = item.Correto ? _correto : _incorreto
+            };
+            result.Add(mensagem);
         }
 
         _onGameEnd.Invoke();

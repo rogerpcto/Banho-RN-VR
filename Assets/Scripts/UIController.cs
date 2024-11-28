@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,9 +21,11 @@ public class UIController : MonoBehaviour
     private Button _previousButton;
     [SerializeField]
     private Button _nextButton;
+    [SerializeField]
+    private Image _imagem;
 
     private int _indexMensagens = 0;
-    private string[] _mensagens;
+    private Mensagem[] _mensagens;
 
     private readonly string[] _instrucoes =
     {
@@ -51,14 +54,9 @@ public class UIController : MonoBehaviour
         _bandeja.Iniciar(itensEmCena);
     }
 
-    public void SetText(string text)
-    {
-        _display.text = text;
-    }
-
     private void MostrarInstrucoes()
     {
-        _mensagens = _instrucoes;
+        _mensagens = _instrucoes.Select(s => new Mensagem() { mensagem = s }).ToArray();
         _buttonText.text = "JOGAR";
         _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(ComecarJogo);
@@ -67,7 +65,7 @@ public class UIController : MonoBehaviour
 
     private void MostrarMensagens()
     {
-        _display.text = _mensagens[0];
+        SetMensagem(_mensagens[0]);
         if (_mensagens.Length > 1)
             _nextButton.gameObject.SetActive(true);
     }
@@ -75,7 +73,7 @@ public class UIController : MonoBehaviour
     private void Proximo()
     {
         _indexMensagens++;
-        _display.text = _mensagens[_indexMensagens];
+        SetMensagem(_mensagens[_indexMensagens]);
         if (_indexMensagens == 1)
             _previousButton.gameObject.SetActive(true);
         if (_indexMensagens == _mensagens.Length - 1)
@@ -85,7 +83,7 @@ public class UIController : MonoBehaviour
     private void Anterior()
     {
         _indexMensagens--;
-        _display.text = _mensagens[_indexMensagens];
+        SetMensagem(_mensagens[_indexMensagens]);
         if (_indexMensagens == 0)
             _previousButton.gameObject.SetActive(false);
         if (_indexMensagens == _mensagens.Length - 2)
@@ -103,11 +101,12 @@ public class UIController : MonoBehaviour
         _buttonText.text = "FINALIZAR";
         _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(FinalizarJogo);
+        _button.gameObject.SetActive(false);
     }
 
     private void FinalizarJogo()
     {
-        string[] checklist = _bandeja.Checklist();
+        Mensagem[] checklist = _bandeja.Checklist();
         _indexMensagens = 0;
         _mensagens = checklist;
         _buttonText.text = "REINICIAR";
@@ -120,4 +119,27 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void SetMensagem(Mensagem mensagem)
+    {
+        _display.text = mensagem.mensagem;
+        if (mensagem.sprite == null)
+            _imagem.enabled = false;
+        else
+        {
+            _imagem.enabled = true;
+            _imagem.sprite = mensagem.sprite;
+        }
+    }
+
+    public void LigarBotao()
+    {
+        _button.gameObject.SetActive(true);
+    }
+}
+
+public struct Mensagem
+{
+    public string mensagem;
+    public Sprite sprite;
 }
