@@ -65,7 +65,7 @@ public class Item : MonoBehaviour
             _segundosLonge = 0;
             return;
         }
-        
+
         _segundosLonge += _segundosChecagem;
         if (_segundosLonge > _segundosParaResetar)
         {
@@ -105,7 +105,7 @@ public class Item : MonoBehaviour
         _segundosLonge = 0;
         _itemCanvas.gameObject.SetActive(true);
     }
-    
+
     private void OnSelectExited(SelectExitEventArgs args)
     {
         _isSet = false;
@@ -127,7 +127,7 @@ public class Item : MonoBehaviour
 
     public string GetInformacao()
     {
-        string cor = _correto ? "green" : "red";
+        string cor = _correto ? "#28A745" : "#DC3545";
         return $"<color={cor}><b>{_nome}:</b></color>\n" +
                $"{_informacao}";
     }

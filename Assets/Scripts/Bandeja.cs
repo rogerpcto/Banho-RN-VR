@@ -79,8 +79,8 @@ public class Bandeja : MonoBehaviour
         {
             new Mensagem()
             {
-                mensagem = $"<color=green>Itens corretos</color>: {itensCorretos}/{_totalItensCorretos}\n" +
-                $"<color=red>Itens errados</color>: {itensErrados}/{_totalItensErrados}\n" +
+                mensagem = $"<color=#28A745>Itens corretos</color>: {itensCorretos}/{_totalItensCorretos}\n" +
+                $"<color=#DC3545>Itens errados</color>: {itensErrados}/{_totalItensErrados}\n" +
                 $"Você escolheu {itensCorretos * 100 / _totalItensCorretos}% dos itens corretos e {itensErrados * 100 / _totalItensErrados}% dos itens errados.\n" +
                 $"Sua pontuação foi de {pontuacao} pontos. Reveja informações sobre os itens usando o menu abaixo."
             }
