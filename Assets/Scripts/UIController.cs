@@ -10,7 +10,7 @@ public class UIController : MonoBehaviour
     private Bandeja _bandeja;
     [SerializeField]
     private GameObject _itens;
-    
+
     [SerializeField]
     private TextMeshProUGUI _display;
     [SerializeField]
@@ -115,9 +115,24 @@ public class UIController : MonoBehaviour
         MostrarMensagens();
     }
 
-    private void ReiniciarJogo()
+    public void ReiniciarJogo()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ToggleFase2()
+    {
+        string sceneName = "Segunda fase";
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+
+        if (scene.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(sceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        }
     }
 
     public void SetMensagem(Mensagem mensagem)
