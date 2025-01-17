@@ -8,6 +8,7 @@ public class Algodao : MonoBehaviour
     private bool _isHold;
     private bool _isWet;
 
+    public bool IsWet { get => _isWet; }
 
     [SerializeField]
     private float _destroyDelay = 2.0f;
