@@ -10,8 +10,6 @@ public class Bebe : MonoBehaviour
 
     [SerializeField]
     private AudioSource _audioSource;
-    [SerializeField]
-    private AudioClip _choroBebe;
 
     private bool _estaChorando = false;
 
@@ -37,7 +35,7 @@ public class Bebe : MonoBehaviour
             if (!_estaChorando)
             {
                 _estaChorando = true;
-                _audioSource.PlayOneShot(_choroBebe);
+                _audioSource.Play();
             }
         }
         else
