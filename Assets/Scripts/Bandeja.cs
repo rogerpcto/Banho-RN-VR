@@ -11,7 +11,7 @@ public class Bandeja : MonoBehaviour
     private float _penalidadePorItemErrado;
     private Action _onGameEnd;
 
-    private readonly List<Item> _itens = new();
+    public readonly List<Item> _itens = new();
 
     [SerializeField]
     private UIController _display;

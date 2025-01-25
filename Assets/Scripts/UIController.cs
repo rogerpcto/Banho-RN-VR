@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 
 public class UIController : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class UIController : MonoBehaviour
     private Button _previousButton;
     [SerializeField]
     private Button _nextButton;
+    [SerializeField]
+    private Button _SecondLevel;
     [SerializeField]
     private Image _imagem;
 
@@ -49,6 +53,7 @@ public class UIController : MonoBehaviour
         _button.onClick.AddListener(MostrarInstrucoes);
         _nextButton.onClick.AddListener(Proximo);
         _previousButton.onClick.AddListener(Anterior);
+        _SecondLevel.onClick.AddListener(FinalizarJogo);
 
         Item[] itensEmCena = _itens.GetComponentsInChildren<Item>();
         _bandeja.Iniciar(itensEmCena);
@@ -106,6 +111,9 @@ public class UIController : MonoBehaviour
 
     private void FinalizarJogo()
     {
+        _SecondLevel.gameObject.SetActive(true);
+        _SecondLevel.onClick.RemoveAllListeners();
+        _SecondLevel.onClick.AddListener(ToggleFase2);
         Mensagem[] checklist = _bandeja.Checklist();
         _indexMensagens = 0;
         _mensagens = checklist;
@@ -122,6 +130,14 @@ public class UIController : MonoBehaviour
 
     public void ToggleFase2()
     {
+        _itens.SetActive(false);
+        while (_bandeja._itens.Count > 0)
+        {
+            Item item = _bandeja._itens[0];
+            _bandeja._itens.RemoveAt(0);
+            Destroy(item.gameObject);
+        }
+        Destroy(_bandeja.gameObject);
         string sceneName = "Segunda fase";
         Scene scene = SceneManager.GetSceneByName(sceneName);
 

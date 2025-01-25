@@ -138,4 +138,9 @@ public class Item : MonoBehaviour
         int defaultLayerMask = 1 << LayerMask.NameToLayer("Default");
         _grabInteractable.interactionLayers &= ~defaultLayerMask;
     }
+
+    public void RemoverItem()
+    {
+        _itemCanvas.gameObject.SetActive(false);
+    }
 }
