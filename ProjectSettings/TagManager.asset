@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Agua
+  - Algodao
+  - Espuma
   layers:
   - Default
   - TransparentFX
