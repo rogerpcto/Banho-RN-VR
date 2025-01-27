@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18306595, g: 0.2287429, b: 0.3066922, a: 1}
+  m_IndirectSpecularColor: {r: 0.18306574, g: 0.22874251, b: 0.30669183, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2087,7 +2087,7 @@ GameObject:
   - component: {fileID: 430853126}
   - component: {fileID: 430853125}
   m_Layer: 5
-  m_Name: SecondLevel
+  m_Name: RestartLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2101,7 +2101,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430853123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2111,8 +2111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -488, y: 50}
-  m_SizeDelta: {x: 320, y: 60}
+  m_AnchoredPosition: {x: -530, y: 50}
+  m_SizeDelta: {x: 250, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &430853125
 MonoBehaviour:
@@ -5069,7 +5069,7 @@ GameObject:
   - component: {fileID: 1469358198}
   - component: {fileID: 1469358197}
   m_Layer: 5
-  m_Name: SecondLevelText
+  m_Name: RestartLevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2 FASE
+  m_text: REINICIAR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e1ee7a7dc234b4e49a2ba23bcf0826f5, type: 2}
   m_sharedMaterial: {fileID: 4699964747039442649, guid: e1ee7a7dc234b4e49a2ba23bcf0826f5, type: 2}
@@ -9230,7 +9230,7 @@ MonoBehaviour:
   _button: {fileID: 1196450814}
   _previousButton: {fileID: 385141409}
   _nextButton: {fileID: 233881305}
-  _SecondLevel: {fileID: 430853126}
+  _RestartLevel: {fileID: 430853126}
   _imagem: {fileID: 119929581}
 --- !u!1001 &2107388666
 PrefabInstance:

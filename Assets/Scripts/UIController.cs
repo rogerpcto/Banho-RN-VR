@@ -23,7 +23,7 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Button _nextButton;
     [SerializeField]
-    private Button _SecondLevel;
+    private Button _RestartLevel;
     [SerializeField]
     private Image _imagem;
 
@@ -52,7 +52,7 @@ public class UIController : MonoBehaviour
         _button.onClick.AddListener(MostrarInstrucoes);
         _nextButton.onClick.AddListener(Proximo);
         _previousButton.onClick.AddListener(Anterior);
-        _SecondLevel.onClick.AddListener(FinalizarJogo);
+        _RestartLevel.onClick.AddListener(FinalizarJogo);
 
         Item[] itensEmCena = _itens.GetComponentsInChildren<Item>();
         _bandeja.Iniciar(itensEmCena);
@@ -110,15 +110,15 @@ public class UIController : MonoBehaviour
 
     private void FinalizarJogo()
     {
-        _SecondLevel.gameObject.SetActive(true);
-        _SecondLevel.onClick.RemoveAllListeners();
-        _SecondLevel.onClick.AddListener(ToggleFase2);
+        _RestartLevel.gameObject.SetActive(true);
+        _RestartLevel.onClick.RemoveAllListeners();
+        _RestartLevel.onClick.AddListener(ReiniciarJogo);
         Mensagem[] checklist = _bandeja.Checklist();
         _indexMensagens = 0;
         _mensagens = checklist;
-        _buttonText.text = "REINICIAR";
+        _buttonText.text = "PRÓXIMA ETAPA";
         _button.onClick.RemoveAllListeners();
-        _button.onClick.AddListener(ReiniciarJogo);
+        _button.onClick.AddListener(ToggleFase2);
         MostrarMensagens();
     }
 
