@@ -5,14 +5,15 @@ public class ItemCanvas : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI text;
+
     private Transform cameraTransform;
     private Vector3 offset;
-
 
     public void Inicializar(string nome)
     {
         cameraTransform = Camera.main.transform;
-        text.text = nome;
+        if (text != null)
+            text.text = nome;
         offset = transform.position - transform.parent.position;
     }
 
