@@ -11,7 +11,6 @@ public class UIController : MonoBehaviour
     private Bandeja _bandeja;
     [SerializeField]
     private GameObject _itens;
-
     [SerializeField]
     private TextMeshProUGUI _display;
     [SerializeField]
@@ -21,9 +20,13 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Button _previousButton;
     [SerializeField]
-    private Button _nextButton;
+    private Button _RestartLevelMenuButton;
     [SerializeField]
-    private Button _RestartLevel;
+    private Button _RestartGameMenuButton;
+    [SerializeField]
+    private MenuExpandButton _MenuExpandButton;
+    [SerializeField]
+    private Button _nextButton;
     [SerializeField]
     private Image _imagem;
 
@@ -52,7 +55,7 @@ public class UIController : MonoBehaviour
         _button.onClick.AddListener(MostrarInstrucoes);
         _nextButton.onClick.AddListener(Proximo);
         _previousButton.onClick.AddListener(Anterior);
-        _RestartLevel.onClick.AddListener(FinalizarJogo);
+        _RestartLevelMenuButton.onClick.AddListener(ReiniciarJogo);
 
         Item[] itensEmCena = _itens.GetComponentsInChildren<Item>();
         _bandeja.Iniciar(itensEmCena);
@@ -110,9 +113,6 @@ public class UIController : MonoBehaviour
 
     private void FinalizarJogo()
     {
-        _RestartLevel.gameObject.SetActive(true);
-        _RestartLevel.onClick.RemoveAllListeners();
-        _RestartLevel.onClick.AddListener(ReiniciarJogo);
         Mensagem[] checklist = _bandeja.Checklist();
         _indexMensagens = 0;
         _mensagens = checklist;
@@ -127,6 +127,19 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void ReiniciarEtapa2()
+    {
+        string sceneName = "Segunda fase";
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        if (scene.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(sceneName).completed += (operation) =>
+            {
+                SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+            };
+        }
+    }
+
     public void ToggleFase2()
     {
         _itens.SetActive(false);
@@ -136,9 +149,21 @@ public class UIController : MonoBehaviour
             _bandeja._itens.RemoveAt(0);
             Destroy(item.gameObject);
         }
-        Destroy(_bandeja.gameObject);
+        if (_bandeja)
+        {
+            Destroy(_bandeja.gameObject);
+        }
+        _previousButton.gameObject.SetActive(false);
+        _nextButton.gameObject.SetActive(false);
+        _MenuExpandButton.AddButton(_RestartGameMenuButton.gameObject.transform);
+        //_RestartGameMenuButton.gameObject.SetActive(true);
         string sceneName = "Segunda fase";
         Scene scene = SceneManager.GetSceneByName(sceneName);
+        _RestartLevelMenuButton.onClick.RemoveAllListeners();
+        _RestartLevelMenuButton.onClick.AddListener(ReiniciarEtapa2);
+        _button.gameObject.SetActive(false);
+        _imagem.enabled = false;
+        _display.text = "Agora chegou a hora de limpar o rosto do bebe com algodao!";
 
         if (scene.isLoaded)
         {

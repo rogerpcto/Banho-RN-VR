@@ -72,4 +72,11 @@ public class MenuExpandButton : MonoBehaviour
             }
         }
     }
+    public void AddButton(Transform button)
+    {
+        var newButtons = new Transform[_childButtons.Length + 1];
+        _childButtons.CopyTo(newButtons, 0);
+        newButtons[_childButtons.Length] = button;
+        _childButtons = newButtons;
+    }
 }
