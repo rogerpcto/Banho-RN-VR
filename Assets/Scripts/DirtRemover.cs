@@ -7,11 +7,14 @@ public class DirtRemover : MonoBehaviour
     private const float TAXA_LIMPEZA = .5f;
     private Vector3 _ultimaPosicao;
     private bool _estaLimpando = false;
+    private bool _estaLimpo = false;
 
     [SerializeField]
     private Renderer _renderer;
     [SerializeField]
     private string _tag;
+    [SerializeField]
+    private Bebe _bebe;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,7 +38,7 @@ public class DirtRemover : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         var algodao = other.GetComponent<Algodao>();
-        if (algodao != null && _estaLimpando)
+        if (algodao != null && _estaLimpando && !_estaLimpo)
         {
             Vector3 posicaoAtual = other.transform.position;
             float distanciaMovida = Vector3.Distance(posicaoAtual, _ultimaPosicao);
@@ -44,9 +47,15 @@ public class DirtRemover : MonoBehaviour
             var materials = _renderer.materials;
             var material = materials.First(m => m.name.Contains(MATERIAL));
 
-            float opacidadeAtual = material.GetFloat($"_Dirt{_tag}Opacity");
+            float opacidadeAtual = material.GetFloat($"_Dirt{_tag.Replace(" ", "")}Opacity");
             float opacidadeNova = Mathf.Clamp(opacidadeAtual - (distanciaMovida * TAXA_LIMPEZA), 0f, 1f);
-            material.SetFloat($"_Dirt{_tag}Opacity", opacidadeNova);
+            material.SetFloat($"_Dirt{_tag.Replace(" ", "")}Opacity", opacidadeNova);
+            if (opacidadeNova <= 0)
+            {
+                _bebe.Sorrir();
+                _bebe.ZonaLimpa(_tag);
+                _estaLimpo = true;
+            }
         }
     }
 
@@ -55,7 +64,7 @@ public class DirtRemover : MonoBehaviour
         var materials = _renderer.materials;
         var material = materials.First(m => m.name.Contains(MATERIAL));
 
-        float currentOpacity = material.GetFloat($"_Dirt{_tag}Opacity");
-        material.SetFloat($"_Dirt{_tag}Opacity", 0);
+        float currentOpacity = material.GetFloat($"_Dirt{_tag.Replace(" ", "")}Opacity");
+        material.SetFloat($"_Dirt{_tag.Replace(" ", "")}Opacity", 0);
     }
 }

@@ -6,6 +6,13 @@ public class Sabonete : MonoBehaviour
     [SerializeField]
     private ParticleSystem _espumaParticleSystem;
 
+    private void Start()
+    {
+        Collider collider = GetComponent<Collider>();
+        Eventos.InscreverSegurarBebe(() => collider.enabled = true);
+        Eventos.InscreverSoltarBebe(() => collider.enabled = false);
+    }
+
     public void CriarSabao(SelectEnterEventArgs args)
     {
         _espumaParticleSystem.transform.parent = args.interactorObject.transform;

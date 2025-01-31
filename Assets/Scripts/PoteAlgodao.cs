@@ -8,6 +8,13 @@ public class PoteAlgodao : MonoBehaviour
     [SerializeField]
     private Transform _spawnPoint;
 
+    private void Start()
+    {
+        Collider collider = GetComponent<Collider>();
+        Eventos.InscreverSegurarBebe(() => collider.enabled = true);
+        Eventos.InscreverSoltarBebe(() => collider.enabled = false);
+    }
+
     public void CriarAlgodao(SelectEnterEventArgs args)
     {
         var currentInteractor = args.interactorObject as XRBaseInteractor;

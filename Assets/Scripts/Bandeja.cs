@@ -11,7 +11,7 @@ public class Bandeja : MonoBehaviour
     private float _penalidadePorItemErrado;
     private Action _onGameEnd;
 
-    public readonly List<Item> _itens = new();
+    private readonly List<Item> _itens = new();
 
     [SerializeField]
     private UIController _display;
@@ -99,5 +99,15 @@ public class Bandeja : MonoBehaviour
         _onGameEnd.Invoke();
 
         return result.ToArray();
+    }
+
+    public void Destruir()
+    {
+        for (int i = _itens.Count - 1; i >= 0; i--)
+        {
+            var item = _itens[i];
+            Destroy(item.gameObject);
+        }
+        Destroy(this.gameObject);
     }
 }
