@@ -8,6 +8,8 @@ public class Agua : MonoBehaviour
     private ItemCanvas _canvas;
     [SerializeField]
     private Slider _slider;
+    [SerializeField]
+    private Collider _collider;
 
     private ActionBasedController _controller;
     private ParticleSystem _particleSystem;
@@ -16,6 +18,13 @@ public class Agua : MonoBehaviour
     private void Start()
     {
         _particleSystem = GetComponent<ParticleSystem>();
+        Eventos.InscreverSoltarBebe(() => _collider.enabled = false);
+        Eventos.InscreverComecarEnxague(() => _collider.enabled = true);
+        Eventos.InscreverTerminarFase3(() =>
+        {
+            _collider.enabled = false;
+            _canvas.gameObject.SetActive(false);
+        });
     }
 
     private void Update()

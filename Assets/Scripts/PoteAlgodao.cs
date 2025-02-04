@@ -13,6 +13,7 @@ public class PoteAlgodao : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         Eventos.InscreverSegurarBebe(() => collider.enabled = true);
         Eventos.InscreverSoltarBebe(() => collider.enabled = false);
+        Eventos.InscreverTerminarFase2(() => collider.enabled = false);
     }
 
     public void CriarAlgodao(SelectEnterEventArgs args)
@@ -23,6 +24,12 @@ public class PoteAlgodao : MonoBehaviour
             return;
 
         GameObject novoAlgodao = Instantiate(_algodaoPrefab, _spawnPoint.position, _spawnPoint.rotation);
+
+        Eventos.InscreverTerminarFase2(() =>
+        {
+            if (novoAlgodao != null)
+                Destroy(novoAlgodao);
+        });
 
         var interactable = novoAlgodao.GetComponent<XRGrabInteractable>();
         if (interactable != null)

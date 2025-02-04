@@ -822,7 +822,7 @@ BoxCollider:
   m_GameObject: {fileID: 27831959}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.8383795, y: 0.26977628, z: 0.48950827}
   m_Center: {x: 0, y: 0.13488814, z: 0}
@@ -6435,6 +6435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5307328502433055466}
   _slider: {fileID: 1064001590}
+  _collider: {fileID: 159364170}
 --- !u!1 &452861214
 GameObject:
   m_ObjectHideFlags: 0
@@ -6512,7 +6513,7 @@ SphereCollider:
   m_GameObject: {fileID: 474187026}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.06
   m_Center: {x: 0, y: 0, z: 0}
@@ -7020,6 +7021,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 1577404993}
   _tag: BochechaDireita
+  _bebe: {fileID: 0}
 --- !u!135 &602823096
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8636,6 +8638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 1577404993}
   _tag: BochechaEsquerda
+  _bebe: {fileID: 0}
 --- !u!135 &1204064139
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9120,6 +9123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 1577404993}
   _tag: Queixo
+  _bebe: {fileID: 0}
 --- !u!65 &1363154297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9406,6 +9410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 1577404993}
   _tag: Testa
+  _bebe: {fileID: 0}
 --- !u!136 &1375310206
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10440,7 +10445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _choro: {fileID: 1580612567}
   _riso: {fileID: 1580612574}
-  _rostoLimpo: 1
+  _cabeca: {fileID: 474187028}
 --- !u!114 &1580612569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10450,7 +10455,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1580612566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 67c5cf3d979d4344688d3f24eaea3458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -10623,7 +10628,7 @@ BoxCollider:
   m_GameObject: {fileID: 1580612566}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.32770723, y: 0.16470689, z: 0.55722153}
   m_Center: {x: 0.0002232343, y: 0.4030676, z: 0.112513855}
@@ -12255,7 +12260,7 @@ BoxCollider:
   m_GameObject: {fileID: 5284665513181219271}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.020000001, y: 0.02, z: 0.049037524}
   m_Center: {x: 0, y: -0.0000000018626449, z: 0.014788319}

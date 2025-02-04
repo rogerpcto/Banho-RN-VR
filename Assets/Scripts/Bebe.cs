@@ -16,8 +16,11 @@ public class Bebe : MonoBehaviour
     private AudioSource _choro;
     [SerializeField]
     private AudioSource _riso;
+    [SerializeField]
+    private Collider _cabeca;
 
     private bool _estaChorando = false;
+    private bool _estaComSabao = true;
 
     void Start()
     {
@@ -31,8 +34,25 @@ public class Bebe : MonoBehaviour
         _grabInteractable.selectExited.AddListener(ResetPosicao);
 
         Eventos.InscreverComecarFase2(() => GetComponent<Collider>().enabled = true);
-        Eventos.InscreverComecarFase3(LimparRosto);
-        Eventos.InscreverTerminarFase2(GerarMensagemFase2);
+        Eventos.InscreverTerminarFase2(() =>
+        {
+            GetComponent<Collider>().enabled = false;
+            Eventos.LimparEventosSegurarBebe();
+            GerarMensagemFase2();
+        });
+        Eventos.InscreverComecarFase3(() =>
+        {
+            GetComponent<Collider>().enabled = true;
+            _cabeca.enabled = true;
+            LimparRosto();
+        });
+        Eventos.InscreverTerminarFase3(() =>
+        {
+            GetComponent<Collider>().enabled = false;
+            _cabeca.enabled = false;
+            Eventos.LimparEventosSegurarBebe();
+            GerarMensagemFase3();
+        });
     }
 
     private void Update()
@@ -111,5 +131,16 @@ public class Bebe : MonoBehaviour
             mensagem = mensagem.Remove(mensagem.Length - 2);
         }
         Eventos.InvocarGerarMensagemFase2(mensagem);
+    }
+
+    public void RemoverSabao() => _estaComSabao = false;
+    public void GerarMensagemFase3()
+    {
+        string mensagem = "Parabéns! Você terminou a limpeza da cabeça do bebê!";
+
+        if (_estaComSabao)
+            mensagem += " Mas não se esqueça de remover todo o sabão do bebê!";
+
+        Eventos.InvocarGerarMensagemFase3(mensagem);
     }
 }

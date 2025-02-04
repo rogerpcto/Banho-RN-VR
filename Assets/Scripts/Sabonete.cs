@@ -20,5 +20,10 @@ public class Sabonete : MonoBehaviour
         _espumaParticleSystem.transform.localScale = Vector3.one;
         _espumaParticleSystem.Play();
         _espumaParticleSystem.GetComponent<Collider>().enabled = true;
+        Eventos.InscreverComecarEnxague(() =>
+        {
+            GetComponent<Collider>().enabled = false;
+            Destroy(_espumaParticleSystem);
+        });
     }
 }

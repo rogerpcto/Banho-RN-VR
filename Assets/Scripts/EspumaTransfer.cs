@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EspumaTransfer : MonoBehaviour
 {
-    private const int ESPUMA_MAX = 40;
+    public const int ESPUMA_MAX = 40;
     private const float TAXA_LIMPEZA = 5f;
 
     private Vector3 _ultimaPosicao;
@@ -34,6 +34,7 @@ public class EspumaTransfer : MonoBehaviour
             {
                 _estaEnsaboado = true;
                 _bebe.Sorrir();
+                Eventos.InvocarComecarEnxague();
             }
         }
     }

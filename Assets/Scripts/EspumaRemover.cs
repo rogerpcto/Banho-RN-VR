@@ -14,6 +14,9 @@ public class EspumaRemover : MonoBehaviour
         var emission = _espumaParticleSystem.emission;
         var rate = emission.rateOverTime;
 
+        if (rate.constant == EspumaTransfer.ESPUMA_MAX)
+            Eventos.InvocarLiberarFinalizarFase3();
+
         if (rate.constant <= 0)
             return;
 
@@ -26,6 +29,7 @@ public class EspumaRemover : MonoBehaviour
         if (taxaNova <= 0)
         {
             _bebe.Sorrir();
+            _bebe.RemoverSabao();
         }
     }
 }
