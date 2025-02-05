@@ -162,7 +162,7 @@ public class UIController : MonoBehaviour
 
         _display.text =
             "Comece pegando o bebê! Segure o bebê de barriga para cima, apoiando bem a cabeça e o pescoço. Mantenha-o próximo ao peito," +
-            " com a cabeça mais alta, e evite movimentos bruscos. Conforto e segurança são essenciais! ";
+            " com a cabeça mais alta, e evite movimentos bruscos. Conforto e segurança são essenciais!";
     }
 
     public void SetMensagem(Mensagem mensagem)
@@ -276,14 +276,18 @@ public class UIController : MonoBehaviour
             SceneManager.UnloadSceneAsync(sceneName).completed += (operation) =>
             {
                 _MenuExpandButton.ToggleMenu();
-                PrepararFase2();
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += (operation) =>
+                {
+                    PrepararFase2();
+                };
             };
         }
         else
         {
-            PrepararFase2();
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += (operation) =>
+            {
+                PrepararFase2();
+            };
         }
     }
 
@@ -319,14 +323,18 @@ public class UIController : MonoBehaviour
             SceneManager.UnloadSceneAsync(sceneName).completed += (operation) =>
             {
                 _MenuExpandButton.ToggleMenu();
-                PrepararFase3();
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += (operation) =>
+                {
+                    PrepararFase3();
+                };
             };
         }
         else
         {
-            PrepararFase3();
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += (operation) =>
+            {
+                PrepararFase3();
+            };
         }
     }
 
