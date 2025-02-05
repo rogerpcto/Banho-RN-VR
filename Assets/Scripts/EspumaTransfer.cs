@@ -24,6 +24,9 @@ public class EspumaTransfer : MonoBehaviour
             var emission = _espumaParticleSystem.emission;
             var rate = emission.rateOverTime;
 
+            if (rate.constant == 0)
+                _bebe.Ensaboar();
+
             float taxaAtual = rate.constant;
             float taxaNova = Mathf.Clamp(taxaAtual + (distanciaMovida * TAXA_LIMPEZA), 0f, ESPUMA_MAX);
 

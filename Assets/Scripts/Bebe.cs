@@ -9,6 +9,7 @@ public class Bebe : MonoBehaviour
     private const int VEZES_MAX_SEGURAR_BEBE = 2;
     private const string MENSAGEM_FORA_DE_POSICAO = " Lembre-se de sempre manter o bebê de barriga para cima, prezando pela sua segurança!";
     private const float TEMPO_MAX_FORA_DE_POSICAO = 30f;
+    private const float TEMPO_MAX_ENSABOADO = 120f;
 
     [SerializeField]
     private AudioSource _choro;
@@ -25,8 +26,9 @@ public class Bebe : MonoBehaviour
 
 
     private bool _estaChorando = false;
-    private bool _estaComSabao = true;
+    private bool _estaComSabao = false;
     private float _timerForaDePosicao;
+    private float _timerSabao;
     private int _vezesSegurado;
 
     void Start()
@@ -65,6 +67,9 @@ public class Bebe : MonoBehaviour
     private void Update()
     {
         CheckOrientacao();
+
+        if (_estaComSabao)
+            _timerSabao += Time.deltaTime;
     }
 
     private void CheckOrientacao()
@@ -157,13 +162,16 @@ public class Bebe : MonoBehaviour
         Eventos.InvocarGerarMensagemFase2(mensagem);
     }
 
+    public void Ensaboar() => _estaComSabao = true;
     public void RemoverSabao() => _estaComSabao = false;
     public void GerarMensagemFase3()
     {
         string mensagem = "Parabéns! Você terminou a limpeza da cabeça do bebê!";
 
         if (_estaComSabao)
-            mensagem += " Mas não se esqueça de remover todo o sabão do bebê.";
+            mensagem += " Mas não se esqueça de remover todo o sabão do bebê. Enxágue o sabão rapidamente para evitar que escorra nos olhos do bebê.";
+        else if (_timerSabao > TEMPO_MAX_ENSABOADO)
+            mensagem += " Enxágue o sabão rapidamente para evitar que escorra nos olhos do bebê.";
 
         if (_vezesSegurado > VEZES_MAX_SEGURAR_BEBE)
             mensagem += MENSAGEM_SEGURAR_BEBE;
@@ -173,4 +181,6 @@ public class Bebe : MonoBehaviour
 
         Eventos.InvocarGerarMensagemFase3(mensagem);
     }
+
+
 }
