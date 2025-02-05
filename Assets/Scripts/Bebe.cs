@@ -5,12 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Bebe : MonoBehaviour
 {
-    private List<string> _tags = new List<string> { "Testa", "Bochecha Direita", "Bochecha Esquerda", "Queixo" };
-
-    private Vector3 _posicaoInicial;
-    private Quaternion _rotacaoInicial;
-    private XRGrabInteractable _grabInteractable;
-    private Animator _animator;
+    private const string MENSAGEM_FORA_DE_POSICAO = " Lembre-se de sempre manter o bebê de barriga para cima, prezando pela sua segurança!";
+    private const float TEMPO_MAX_FORA_DE_POSICAO = 30f;
 
     [SerializeField]
     private AudioSource _choro;
@@ -19,8 +15,16 @@ public class Bebe : MonoBehaviour
     [SerializeField]
     private Collider _cabeca;
 
+    private List<string> _tags = new List<string> { "Testa", "Bochecha Direita", "Bochecha Esquerda", "Queixo" };
+    private Vector3 _posicaoInicial;
+    private Quaternion _rotacaoInicial;
+    private XRGrabInteractable _grabInteractable;
+    private Animator _animator;
+
+
     private bool _estaChorando = false;
     private bool _estaComSabao = true;
+    private float _timerForaDePosicao;
 
     void Start()
     {
@@ -62,7 +66,15 @@ public class Bebe : MonoBehaviour
 
     private void CheckOrientacao()
     {
-        if (Vector3.Dot(transform.up, Vector3.down) > 0.7f)
+        float sinal = Mathf.Sign(Vector3.Dot(transform.forward, Vector3.down));
+        float angulo = sinal * Vector3.Angle(transform.up, Vector3.up);
+
+        if (angulo > 30f || angulo < 0)
+        {
+            _timerForaDePosicao += Time.deltaTime;
+        }
+
+        if (angulo > 45f || angulo < -30f)
         {
             if (!_estaChorando)
             {
@@ -129,7 +141,12 @@ public class Bebe : MonoBehaviour
                 mensagem += tag + ", ";
             }
             mensagem = mensagem.Remove(mensagem.Length - 2);
+            mensagem += ".";
         }
+
+        if (_timerForaDePosicao > TEMPO_MAX_FORA_DE_POSICAO)
+            mensagem += MENSAGEM_FORA_DE_POSICAO;
+
         Eventos.InvocarGerarMensagemFase2(mensagem);
     }
 
@@ -139,7 +156,10 @@ public class Bebe : MonoBehaviour
         string mensagem = "Parabéns! Você terminou a limpeza da cabeça do bebê!";
 
         if (_estaComSabao)
-            mensagem += " Mas não se esqueça de remover todo o sabão do bebê!";
+            mensagem += " Mas não se esqueça de remover todo o sabão do bebê.";
+
+        if (_timerForaDePosicao > TEMPO_MAX_FORA_DE_POSICAO)
+            mensagem += MENSAGEM_FORA_DE_POSICAO;
 
         Eventos.InvocarGerarMensagemFase3(mensagem);
     }
