@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Bebe : MonoBehaviour
 {
+    private const string MENSAGEM_SEGURAR_BEBE = " Cuidado! Não solte o bebê. Mantenha sempre um apoio firme.";
+    private const int VEZES_MAX_SEGURAR_BEBE = 2;
     private const string MENSAGEM_FORA_DE_POSICAO = " Lembre-se de sempre manter o bebê de barriga para cima, prezando pela sua segurança!";
     private const float TEMPO_MAX_FORA_DE_POSICAO = 30f;
 
@@ -25,6 +27,7 @@ public class Bebe : MonoBehaviour
     private bool _estaChorando = false;
     private bool _estaComSabao = true;
     private float _timerForaDePosicao;
+    private int _vezesSegurado;
 
     void Start()
     {
@@ -97,6 +100,7 @@ public class Bebe : MonoBehaviour
 
     private void Segurar(SelectEnterEventArgs args)
     {
+        _vezesSegurado++;
         Eventos.InvocarSegurarBebe();
         _animator.SetBool("Segurando", true);
     }
@@ -144,6 +148,9 @@ public class Bebe : MonoBehaviour
             mensagem += ".";
         }
 
+        if (_vezesSegurado > VEZES_MAX_SEGURAR_BEBE)
+            mensagem += MENSAGEM_SEGURAR_BEBE;
+
         if (_timerForaDePosicao > TEMPO_MAX_FORA_DE_POSICAO)
             mensagem += MENSAGEM_FORA_DE_POSICAO;
 
@@ -157,6 +164,9 @@ public class Bebe : MonoBehaviour
 
         if (_estaComSabao)
             mensagem += " Mas não se esqueça de remover todo o sabão do bebê.";
+
+        if (_vezesSegurado > VEZES_MAX_SEGURAR_BEBE)
+            mensagem += MENSAGEM_SEGURAR_BEBE;
 
         if (_timerForaDePosicao > TEMPO_MAX_FORA_DE_POSICAO)
             mensagem += MENSAGEM_FORA_DE_POSICAO;
